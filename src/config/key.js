@@ -1,0 +1,1 @@
+export const APIKei = "bf1a7f5ba9eb1f341bdb8824845ec6f6"

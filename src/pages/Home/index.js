@@ -1,27 +1,20 @@
 import {Container, MovieList, Movie} from "./styles";
+import {APIKei} from "../../config/key";
+import { useState, useEffect } from "react";
 
 function Home(){
 
-    const Movies = [
-        {
-            id: 1,
-            title: 'Spider-Man',
-            image_url: 'https://a-static.mlcdn.com.br/450x450/poster-cartaz-homem-aranha-sem-volta-para-casa-a-pop-arte-poster/poparteskins2/15938541928/eab0331747ef83ad0e878c1ea4535160.jpeg'
-        },
+    const [Movies, setMovies] = useState([]);
+    const image_path = "https://image.tmdb.org/t/p/w500"
 
-        {
-            id: 2,
-            title: 'Avengers',
-            image_url: 'https://a-static.mlcdn.com.br/450x450/poster-cartaz-homem-aranha-sem-volta-para-casa-a-pop-arte-poster/poparteskins2/15938541928/eab0331747ef83ad0e878c1ea4535160.jpeg'
-        },
+    useEffect(()=> {
 
-        {
-            id: 3,
-            title: 'Batman',
-            image_url: 'https://a-static.mlcdn.com.br/450x450/poster-cartaz-homem-aranha-sem-volta-para-casa-a-pop-arte-poster/poparteskins2/15938541928/eab0331747ef83ad0e878c1ea4535160.jpeg'
-        }
-
-    ];
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${APIKei}&language=en-US&page=1`)
+        .then(response => response.json()) //vai retornar um objeto json
+        .then(data => {
+            setMovies(data.results)
+        })
+    }, [])
 
     return(
         <Container>
@@ -32,7 +25,7 @@ function Home(){
                     return( 
                         <Movie key = {movie.id}>
                             <a href="https://www.google.com">
-                            <img src = {movie.image_url} alt= {movie.title}/> </a>
+                            <img src = {`${image_path}${movie.poster_path}`} alt= {movie.title}/> </a>
                             <span>{movie.title}</span>
                         </Movie>
                     )
