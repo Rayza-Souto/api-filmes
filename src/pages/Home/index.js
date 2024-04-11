@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 
 function Home(){
 
-    const [Movies, setMovies] = useState([]);
-    const image_path = "https://image.tmdb.org/t/p/w500"
+    const [Movies, setMovies] = useState([]);       //vai armazenar os filmes
+    const image_path = "https://image.tmdb.org/t/p/w500" //caminho da imagem
 
     useEffect(()=> {
 
-        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${APIKei}&language=en-US&page=1`)
+        fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${APIKei}&language=en-US&page=1`) //vai fazer uma requisição para a api
         .then(response => response.json()) //vai retornar um objeto json
         .then(data => {
             setMovies(data.results)
